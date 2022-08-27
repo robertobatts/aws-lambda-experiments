@@ -1,19 +1,15 @@
 package com.robertobatts;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-@Named("test")
-public class TestLambda implements RequestHandler<InputObject, OutputObject> {
+import javax.inject.Named;
 
-    @Inject
-    ProcessingService service;
+@Named("test")
+public class TestLambda implements RequestHandler<InputObject, String> {
 
     @Override
-    public OutputObject handleRequest(InputObject input, Context context) {
-        return service.process(input).setRequestId(context.getAwsRequestId());
+    public String handleRequest(InputObject input, Context context) {
+        return input.getGreeting() + " " + input.getName();
     }
 }
